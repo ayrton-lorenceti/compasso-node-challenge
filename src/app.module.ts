@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from "@nestjs/config";
 
 import { CityController } from "./controllers/city.controller";
 import { ClientController } from "./controllers/client.controller";
@@ -7,7 +8,9 @@ import { CityService } from './services/city.service';
 import { ClientService } from "./services/client.service";
 
 @Module({
-  imports: [],
+  imports: [
+    // ConfigModule.forRoot()
+  ],
   controllers: [
     CityController, 
     ClientController
@@ -17,4 +20,5 @@ import { ClientService } from "./services/client.service";
     ClientService
   ],
 })
+
 export class AppModule {}
