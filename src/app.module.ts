@@ -11,17 +11,17 @@ import { ClientService } from "./services/client.service";
 
 @Module({
   imports: [
-    // TypeOrmModule.forRoot({
-    //   type: 'mysql',
-    //   host: 'localhost',
-    //   port: 3306,
-    //   username: 'root',
-    //   password: 'root',
-    //   database: 'test',
-    //   entities: [],
-    //   synchronize: true,
-    // })
-    ConfigModule.forRoot()
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: process.env.DATABASE_HOST,
+      port: 3306,
+      username: process.env.DATABASE_USERNAME,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_NAME,
+      entities: [],
+      synchronize: true,
+    })
   ],
   controllers: [
     CityController, 
