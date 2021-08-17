@@ -2,14 +2,18 @@ import { Controller, Get, HttpCode, Post } from '@nestjs/common';
 
 import { CityService } from "../services/city.service";
 
-@Controller()
+import { City } from '../interfaces/city/city.interface';
+
+@Controller("city")
 export class CityController {
-  constructor(private readonly cityService: CityService) { }
+  constructor(
+    private readonly cityService: CityService
+  ) { }
   
   @Post()
   @HttpCode(201)
-  create() {
-    return this.cityService.create();
+  create(city: City) {
+    return this.cityService.create(city);
   }
 
   @Get()
