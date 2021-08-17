@@ -10,7 +10,12 @@ export class ClientController {
   }
 
   @Get()
-  get() {
+  getById() {
+    return "";
+  }
+
+  @Get()
+  getByName() {
     return "";
   }
 
