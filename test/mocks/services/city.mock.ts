@@ -1,4 +1,4 @@
 export const city = {
   "name": "Chapecó",
-  "fu": "SC"
+  "uf": "SC"
 }
