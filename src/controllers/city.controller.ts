@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Param, Post } from '@nestjs/common';
 
 import { CityService } from "../services/city.service";
 
@@ -12,17 +12,13 @@ export class CityController {
   
   @Post()
   @HttpCode(201)
-  create(city: City) {
+  create(@Body() city: City): Promise<City> {
     return this.cityService.create(city);
   }
 
-  @Get()
-  getByName() {
-    return "";
-  }
-
-  @Get()
-  getByStateName() {
-    return "";
+  @Get(":name")
+  @HttpCode(200)
+  getByName(@Param("name") name: string) {
+    return this.cityService.getByName(name);
   }
 }
