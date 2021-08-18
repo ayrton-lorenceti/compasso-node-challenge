@@ -9,6 +9,7 @@ import { CityService } from './services/city.service';
 import { ClientService } from "./services/client.service";
 
 import { City }  from "./entities/city.entity";
+import { UFController } from './controllers/uf.controller';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { City }  from "./entities/city.entity";
   ],
   controllers: [
     CityController, 
-    ClientController
+    ClientController,
+    UFController
   ],
   providers: [
     CityService,

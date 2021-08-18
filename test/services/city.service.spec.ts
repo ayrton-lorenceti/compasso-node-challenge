@@ -12,7 +12,7 @@ describe('CityService', () => {
   const CITY_NAME = "Chapecó";
   const mockRepository = {
     save: jest.fn().mockResolvedValueOnce(insertedCity),
-    findOne: jest.fn().mockResolvedValueOnce(insertedCity)
+    findOne: jest.fn().mockResolvedValue(insertedCity)
   }
 
   let cityService: CityService;
@@ -31,6 +31,10 @@ describe('CityService', () => {
     cityService = app.get<CityService>(CityService);
   });
 
+  afterEach(async () => {
+    jest.clearAllMocks();
+  })
+
   it("Should create a new city", async () => {
     const response = await cityService.create(city);
 
@@ -39,6 +43,12 @@ describe('CityService', () => {
 
   it("Should return a city by name", async () => {
     const response = await cityService.getByName(CITY_NAME);
+
+    expect(response).toEqual(insertedCity);
+  });
+
+  it("Should return a city by name and by state", async () => {
+    const response = await cityService.getByUF(city);
 
     expect(response).toEqual(insertedCity);
   });

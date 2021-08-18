@@ -4,21 +4,23 @@ import { CityService } from "../services/city.service";
 
 import { City } from '../interfaces/city/city.interface';
 
-@Controller("city")
-export class CityController {
+@Controller("uf")
+export class UFController {
   constructor(
     private readonly cityService: CityService
   ) { }
-  
-  @Post()
-  @HttpCode(201)
-  create(@Body() city: City): Promise<City> {
-    return this.cityService.create(city);
-  }
 
-  @Get(":name")
+  @Get(":uf/city/:name")
   @HttpCode(200)
-  getByName(@Param("name") name: string) {
-    return this.cityService.getByName(name);
+  getByName(
+    @Param("uf") uf: string,
+    @Param("name") cityName: string
+  ) {
+    const city: City = {
+      name: cityName,
+      uf
+    }
+
+    return this.cityService.getByUF(city);
   }
 }

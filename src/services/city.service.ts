@@ -17,8 +17,8 @@ export class CityService {
     return this.cityRepository.save(city);
   }
 
-  getByName(cityName: string): Promise<City> {
-    return this.cityRepository.findOne({ name: cityName });
+  getByName(name: string): Promise<City> {
+    return this.cityRepository.findOne({ name });
   }
 
   getByUF(city: City): Promise<City> {
