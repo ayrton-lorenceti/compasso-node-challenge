@@ -14,7 +14,7 @@ export class Client {
   fullName: string;
 
   @Column({
-    length: 5,
+    length: 10,
     nullable: false
   })
   sex: string;
