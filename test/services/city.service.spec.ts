@@ -6,13 +6,13 @@ import { CityService } from '../../src/services/city.service';
 import { City as CityEntity } from "../../src/entities/city.entity";
 
 import { city } from "../mocks/services/city.mock";
-import { createdCity } from "../mocks/services/created-city.mock";
+import { insertedCity } from "../mocks/services/inserted-city.mock";
 
 describe('CityService', () => {
   const CITY_NAME = "Chapecó";
   const mockRepository = {
-    save: jest.fn().mockResolvedValueOnce(createdCity),
-    findOne: jest.fn().mockResolvedValueOnce(createdCity)
+    save: jest.fn().mockResolvedValueOnce(insertedCity),
+    findOne: jest.fn().mockResolvedValueOnce(insertedCity)
   }
 
   let cityService: CityService;
@@ -34,12 +34,12 @@ describe('CityService', () => {
   it("Should create a new city", async () => {
     const response = await cityService.create(city);
 
-    expect(response).toEqual(createdCity);
+    expect(response).toEqual(insertedCity);
   });
 
   it("Should return a city by name", async () => {
     const response = await cityService.getByName(CITY_NAME);
 
-    expect(response).toEqual(createdCity);
+    expect(response).toEqual(insertedCity);
   });
 });
