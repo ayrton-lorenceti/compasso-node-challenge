@@ -5,8 +5,8 @@ import { CityService } from '../../src/services/city.service';
 
 import { City as CityEntity } from "../../src/entities/city.entity";
 
-import { city } from "../mocks/services/city.mock";
-import { insertedCity } from "../mocks/services/inserted-city.mock";
+import { city } from "../mocks/services/city/city.mock";
+import { insertedCity } from "../mocks/services/city/inserted-city.mock";
 
 describe('CityService', () => {
   const CITY_NAME = "Chapecó";
