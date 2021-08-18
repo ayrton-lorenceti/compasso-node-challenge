@@ -16,9 +16,9 @@ export class CityController {
     return this.cityService.create(city);
   }
 
-  @Get(":name")
+  @Get(":cityName")
   @HttpCode(200)
-  getByName(@Param("name") name: string) {
-    return this.cityService.getByName(name);
+  getByName(@Param("cityName") cityName: string) {
+    return this.cityService.getByName(cityName);
   }
 }
