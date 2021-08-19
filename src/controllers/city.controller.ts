@@ -2,6 +2,8 @@ import { Body, Controller, Get, HttpCode, Param, Post } from '@nestjs/common';
 
 import { CityService } from "../services/city.service";
 
+import { ParseUFPipe } from "../pipes/parse-uf.pipe";
+
 import { City } from '../interfaces/city/city.interface';
 
 @Controller("city")
@@ -12,7 +14,9 @@ export class CityController {
   
   @Post()
   @HttpCode(201)
-  create(@Body() city: City): Promise<City> {
+  create(
+    @Body(new ParseUFPipe()) city: City
+  ): Promise<City> {
     return this.cityService.create(city);
   }
 
