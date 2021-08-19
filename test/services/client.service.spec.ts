@@ -7,14 +7,17 @@ import { Client as ClientEntity } from "../../src/entities/client.entity";
 
 import { client } from "../mocks/services/client/client.mock";
 import { insertedClient } from "../mocks/services/client/insertedClient.mock";
+import { updateResult } from "../mocks/services/client/updateResult";
 
 describe('ClientService', () => {
   const CLIENT_ID = 1;
   const CLIENT_NAME = "Ayrton";
+  const NEW_CLIENT_NAME = "Daniel";
 
   const mockRepository = {
     save: jest.fn().mockResolvedValueOnce(insertedClient),
-    findOne: jest.fn().mockResolvedValue(insertedClient)
+    findOne: jest.fn().mockResolvedValue(insertedClient),
+    update: jest.fn().mockResolvedValue(updateResult),
   }
 
   let clientService: ClientService;
@@ -53,5 +56,11 @@ describe('ClientService', () => {
     const response = await clientService.getByName(CLIENT_NAME);
 
     expect(response).toEqual(insertedClient);
+  });
+
+  it("Should update client's name", async () => {
+    const response = await clientService.updateName(CLIENT_ID, NEW_CLIENT_NAME);
+
+    expect(response).toEqual(updateResult);
   });
 });
