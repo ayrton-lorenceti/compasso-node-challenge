@@ -25,14 +25,11 @@ export class ClientService {
     return this.clientRepository.findOne({ fullName });
   }
 
-  async updateName(id: number, fullName: string) {
-    const a = await this.clientRepository.update(id, { fullName });
-    console.log(a);
-    return a
+  updateName(id: number, fullName: string) {
     return this.clientRepository.update(id, { fullName });
   }
 
-  delete() {
-    return "";
+  delete(id: number) {
+    return this.clientRepository.delete(id);
   }
 }
