@@ -6,8 +6,9 @@ import { ClientService } from '../../src/services/client.service';
 import { Client as ClientEntity } from "../../src/entities/client.entity";
 
 import { client } from "../mocks/services/client/client.mock";
+import { deleteResult } from "../mocks/services/client/deleteResult.mock";
 import { insertedClient } from "../mocks/services/client/insertedClient.mock";
-import { updateResult } from "../mocks/services/client/updateResult";
+import { updateResult } from "../mocks/services/client/updateResult.mock";
 
 describe('ClientService', () => {
   const CLIENT_ID = 1;
@@ -18,6 +19,7 @@ describe('ClientService', () => {
     save: jest.fn().mockResolvedValueOnce(insertedClient),
     findOne: jest.fn().mockResolvedValue(insertedClient),
     update: jest.fn().mockResolvedValue(updateResult),
+    delete: jest.fn().mockResolvedValue(deleteResult),
   }
 
   let clientService: ClientService;
@@ -62,5 +64,11 @@ describe('ClientService', () => {
     const response = await clientService.updateName(CLIENT_ID, NEW_CLIENT_NAME);
 
     expect(response).toEqual(updateResult);
+  });
+
+  it("Should delete a client", async () => {
+    const response = await clientService.delete(CLIENT_ID);
+
+    expect(response).toEqual(deleteResult);
   });
 });
