@@ -18,15 +18,16 @@ export class ClientController {
     return this.clientService.create(client);
   }
 
-  @Get(":id")
+  @Get("/id/:id")
   @HttpCode(200)
   getById(@Param("id") id: number): Promise<Client> {
     return this.clientService.getById(id);
   }
 
-  @Get()
-  getByName() {
-    return "";
+  @Get("/fullname/:fullname")
+  @HttpCode(200)
+  getByName(@Param("fullname") fullName: string): Promise<Client> {
+    return this.clientService.getByName(fullName);
   }
 
   @Patch()

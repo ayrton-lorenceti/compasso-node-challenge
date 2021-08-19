@@ -10,10 +10,11 @@ import { insertedClient } from "../mocks/services/client/insertedClient.mock";
 
 describe('ClientService', () => {
   const CLIENT_ID = 1;
+  const CLIENT_NAME = "Ayrton";
 
   const mockRepository = {
     save: jest.fn().mockResolvedValueOnce(insertedClient),
-    findOne: jest.fn().mockResolvedValueOnce(insertedClient)
+    findOne: jest.fn().mockResolvedValue(insertedClient)
   }
 
   let clientService: ClientService;
@@ -44,6 +45,12 @@ describe('ClientService', () => {
 
   it("Should return a client by id", async () => {
     const response = await clientService.getById(CLIENT_ID);
+
+    expect(response).toEqual(insertedClient);
+  });
+
+  it("Should return a client by name", async () => {
+    const response = await clientService.getByName(CLIENT_NAME);
 
     expect(response).toEqual(insertedClient);
   });

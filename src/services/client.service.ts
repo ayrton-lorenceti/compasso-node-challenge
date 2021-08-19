@@ -21,8 +21,8 @@ export class ClientService {
     return this.clientRepository.findOne(id);
   }
 
-  getByName() {
-    return "";
+  getByName(fullName: string): Promise<Client> {
+    return this.clientRepository.findOne({ fullName });
   }
 
   updateName() {
