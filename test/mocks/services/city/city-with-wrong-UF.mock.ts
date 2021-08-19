@@ -1,6 +1,6 @@
 import { City } from "../../../../src/interfaces/city/city.interface";
 
-export const city: City = {
+export const cityWithWrongUF: City = {
   "name": "Chapecó",
-  "uf": "SC"
+  "uf": "AAA"
 }
