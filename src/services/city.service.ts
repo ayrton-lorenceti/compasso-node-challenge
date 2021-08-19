@@ -13,11 +13,16 @@ export class CityService {
     private readonly cityRepository: Repository<CityEntity>,
   ) {}
 
-  create(city: City): Promise<City> {
-    return this.cityRepository.save(city);
+  async create(newCity: City): Promise<City> {
+    const city = await this.getByName(newCity.name);
+
+    if (city)
+      return city;
+    
+    return this.cityRepository.save(newCity);
   }
 
-  getByName(name: string): Promise<City> {
+  async getByName(name: string): Promise<City> {
     return this.cityRepository.findOne({ name });
   }
 
