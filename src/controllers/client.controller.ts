@@ -30,9 +30,13 @@ export class ClientController {
     return this.clientService.getByName(fullName);
   }
 
-  @Patch()
-  updateName() {
-    return "";
+  @Patch("/id/:id")
+  @HttpCode(204)
+  updateName(
+    @Body() client: { fullName: string },
+    @Param("id") id: number
+  ) {
+    return this.clientService.updateName(id, client.fullName);
   }
 
   @Delete()
