@@ -1,17 +1,27 @@
-import { Controller, Delete, Get, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
 
-@Controller()
+import { ClientService } from "../services/client.service";
+
+import { Client } from '../interfaces/client/client.interface';
+
+@Controller("client")
 export class ClientController {
-  constructor() { }
+  constructor(
+    private readonly clientService: ClientService
+  ) { }
 
   @Post()
-  create() {
-    return "";
+  @HttpCode(201)
+  create(@Body() client: Client): Promise<Client> {
+    client.birthDate = new Date(client.birthDate);
+
+    return this.clientService.create(client);
   }
 
-  @Get()
-  getById() {
-    return "";
+  @Get(":id")
+  @HttpCode(200)
+  getById(@Param("id") id: number): Promise<Client> {
+    return this.clientService.getById(id);
   }
 
   @Get()

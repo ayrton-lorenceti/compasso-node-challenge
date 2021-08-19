@@ -1,10 +1,10 @@
+import { City } from '../../entities/city.entity';
+
 export interface Client {
   "id"?: number;
   "fullName": string;
   "sex": string;
   "birthDate": Date;
   "age": number;
-  "cityId": number;
+  "city": City;
 }
-
-//Cliente: nome completo, sexo, data de nascimento, idade e cidade onde mora.

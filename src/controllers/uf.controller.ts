@@ -15,7 +15,7 @@ export class UFController {
   getByName(
     @Param("uf") uf: string,
     @Param("name") cityName: string
-  ) {
+  ): Promise<City> {
     const city: City = {
       name: cityName,
       uf

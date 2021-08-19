@@ -1,6 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-import { City } from './city.entity';
+import { City as CityEntity } from './city.entity';
 
 @Entity()
 export class Client {
@@ -31,8 +31,13 @@ export class Client {
   age: number;
 
   @ManyToOne(
-    () => City, (City) => City.id, { onUpdate: 'CASCADE', onDelete: 'CASCADE' }
+    type => CityEntity, city => city.id, { 
+      onUpdate: 'CASCADE', 
+      onDelete: 'CASCADE', 
+      nullable: false, 
+      eager: true 
+    }
   )
-  @JoinColumn({ name: 'city' })
-  city: City;
+  @JoinTable()
+  city: CityEntity;
 }

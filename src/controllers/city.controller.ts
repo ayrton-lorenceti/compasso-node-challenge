@@ -18,7 +18,7 @@ export class CityController {
 
   @Get(":name")
   @HttpCode(200)
-  getByName(@Param("name") name: string) {
+  getByName(@Param("name") name: string): Promise<City> {
     return this.cityService.getByName(name);
   }
 }

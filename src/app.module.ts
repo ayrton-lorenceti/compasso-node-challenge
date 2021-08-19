@@ -4,17 +4,18 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { CityController } from "./controllers/city.controller";
 import { ClientController } from "./controllers/client.controller";
+import { UFController } from './controllers/uf.controller';
 
 import { CityService } from './services/city.service';
 import { ClientService } from "./services/client.service";
 
 import { City }  from "./entities/city.entity";
-import { UFController } from './controllers/uf.controller';
+import { Client } from './entities/client.entity';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    TypeOrmModule.forFeature([City]),
+    TypeOrmModule.forFeature([City, Client]),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DATABASE_HOST,
