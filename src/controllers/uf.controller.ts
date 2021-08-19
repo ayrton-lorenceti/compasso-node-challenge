@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Param, Post } from '@nestjs/common';
+import { Controller, Get, HttpCode, Param } from '@nestjs/common';
 
 import { CityService } from "../services/city.service";
 
@@ -13,14 +13,9 @@ export class UFController {
   @Get(":uf/city/:name")
   @HttpCode(200)
   getByName(
+    @Param("name") cityName: string,
     @Param("uf") uf: string,
-    @Param("name") cityName: string
   ): Promise<City> {
-    const city: City = {
-      name: cityName,
-      uf
-    }
-
-    return this.cityService.getByUF(city);
+    return this.cityService.getByUF(cityName, uf);
   }
 }
