@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
@@ -19,16 +19,21 @@ export class CityService {
   async create(newCity: City): Promise<City> {
     newCity.uf = ParserUtils.parseUF(newCity.uf);
 
-    const city = await this.getByName(newCity.name);
+    const city = await this.getByName(newCity.name)
+      .catch(error => { throw new InternalServerErrorException(error.message) });
 
     if (city)
       return city;
     
-    return this.cityRepository.save(newCity);
+    return this.cityRepository
+      .save(newCity)
+      .catch(error => { throw new InternalServerErrorException(error.message) });
   }
 
   async getByName(name: string): Promise<City> {
-    return this.cityRepository.findOne({ name });
+    return this.cityRepository
+      .findOne({ name })
+      .catch(error => { throw new InternalServerErrorException(error.message) });
   }
 
   getByUF(cityName: string, uf: string): Promise<City> {
@@ -37,6 +42,8 @@ export class CityService {
       uf: ParserUtils.parseUF(uf)
     };
 
-    return this.cityRepository.findOne({ name: city.name, uf: city.uf });
+    return this.cityRepository
+      .findOne({ name: city.name, uf: city.uf })
+      .catch(error => { throw new InternalServerErrorException(error.message) });
   }
 }

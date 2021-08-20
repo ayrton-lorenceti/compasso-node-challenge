@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -14,22 +14,32 @@ export class ClientService {
   ) {}
 
   create(client: Client): Promise<Client> {
-    return this.clientRepository.save(client);
+    return this.clientRepository
+      .save(client)
+      .catch(error => { throw new InternalServerErrorException(error.message) });
   }
 
   getById(id: number): Promise<Client> {
-    return this.clientRepository.findOne(id);
+    return this.clientRepository
+      .findOne(id)
+      .catch(error => { throw new InternalServerErrorException(error.message) });
   }
 
   getByName(fullName: string): Promise<Client> {
-    return this.clientRepository.findOne({ fullName });
+    return this.clientRepository
+      .findOne({ fullName })
+      .catch(error => { throw new InternalServerErrorException(error.message) });
   }
 
   updateName(id: number, fullName: string) {
-    return this.clientRepository.update(id, { fullName });
+    return this.clientRepository
+      .update(id, { fullName })
+      .catch(error => { throw new InternalServerErrorException(error.message) });
   }
 
   delete(id: number) {
-    return this.clientRepository.delete(id);
+    return this.clientRepository
+      .delete(id)
+      .catch(error => { throw new InternalServerErrorException(error.message) });
   }
 }
