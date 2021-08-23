@@ -3,6 +3,8 @@ import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@ne
 import { ClientService } from "../services/client.service";
 
 import { Client } from '../interfaces/client/client.interface';
+import { InsertedClient } from '../interfaces/client/inserted-client.interface';
+import { ReceivedClient } from '../interfaces/client/received-client.interface';
 
 @Controller("client")
 export class ClientController {
@@ -13,10 +15,8 @@ export class ClientController {
   @Post()
   @HttpCode(201)
   create(
-    @Body() client: Client
-  ): Promise<Client> {
-    client.birthDate = new Date(client.birthDate);
-
+    @Body() client: ReceivedClient
+  ): Promise<InsertedClient> {
     return this.clientService.create(client);
   }
 
@@ -24,7 +24,7 @@ export class ClientController {
   @HttpCode(200)
   getById(
     @Param("id") id: number
-  ): Promise<Client> {
+  ): Promise<InsertedClient> {
     return this.clientService.getById(id);
   }
 
@@ -32,7 +32,7 @@ export class ClientController {
   @HttpCode(200)
   getByName(
     @Param("fullname") fullName: string
-  ): Promise<Client> {
+  ): Promise<InsertedClient> {
     return this.clientService.getByName(fullName);
   }
 
