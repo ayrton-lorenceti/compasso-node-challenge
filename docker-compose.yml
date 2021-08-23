@@ -1,0 +1,35 @@
+version: "3.3"
+services:
+  db:
+    image: "mysql"
+    networks:
+      - app-network
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: nest_db
+  api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: npm start
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    networks:
+      - app-network
+    links:
+      - db
+    depends_on:
+      - db
+
+networks:
+  app-network:
+    driver: bridge
