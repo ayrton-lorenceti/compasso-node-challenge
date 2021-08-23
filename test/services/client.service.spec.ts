@@ -3,11 +3,13 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { ClientService } from '../../src/services/client.service';
 
+import { City as CityEntity } from "../../src/entities/city.entity";
 import { Client as ClientEntity } from "../../src/entities/client.entity";
 
-import { client } from "../mocks/services/client/client.mock";
+import { insertedCity } from "../mocks/services/city/inserted-city.mock";
 import { deleteResult } from "../mocks/services/client/deleteResult.mock";
 import { insertedClient } from "../mocks/services/client/insertedClient.mock";
+import { receivedClient } from "../mocks/services/client/receivedClient.mock";
 import { updateResult } from "../mocks/services/client/updateResult.mock";
 
 describe('ClientService', () => {
@@ -15,7 +17,10 @@ describe('ClientService', () => {
   const CLIENT_NAME = "Ayrton";
   const NEW_CLIENT_NAME = "Daniel";
 
-  const mockRepository = {
+  const cityMockRepository = {
+    findOne: jest.fn().mockResolvedValue(insertedCity),
+  }
+  const clientMockRepository = {
     save: jest.fn().mockResolvedValueOnce(insertedClient),
     findOne: jest.fn().mockResolvedValue(insertedClient),
     update: jest.fn().mockResolvedValue(updateResult),
@@ -30,7 +35,11 @@ describe('ClientService', () => {
         ClientService,
         {
           provide: getRepositoryToken(ClientEntity),
-          useValue: mockRepository
+          useValue: clientMockRepository
+        },
+        {
+          provide: getRepositoryToken(CityEntity),
+          useValue: clientMockRepository
         }
       ],
     }).compile();
@@ -43,7 +52,7 @@ describe('ClientService', () => {
   })
 
   it("Should create a new client", async () => {
-    const response = await clientService.create(client);
+    const response = await clientService.create(receivedClient);
 
     expect(response).toEqual(insertedClient);
   });
