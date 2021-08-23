@@ -8,6 +8,7 @@ import { City as CityEntity }  from "../entities/city.entity";
 import { ParserUtils } from "../utils/parser.utils";
 
 import { City } from '../interfaces/city/city.interface';
+import { InsertedCity } from '../interfaces/city/inserted-city.interface';
 
 @Injectable()
 export class CityService {
@@ -16,7 +17,7 @@ export class CityService {
     private readonly cityRepository: Repository<CityEntity>,
   ) {}
 
-  async create(newCity: City): Promise<City> {
+  async create(newCity: City): Promise<InsertedCity> {
     newCity.uf = ParserUtils.parseUF(newCity.uf);
 
     const city = await this.getByName(newCity.name)
@@ -30,13 +31,13 @@ export class CityService {
       .catch(error => { throw new InternalServerErrorException(error.message) });
   }
 
-  async getByName(name: string): Promise<City> {
+  async getByName(name: string): Promise<InsertedCity> {
     return this.cityRepository
       .findOne({ name })
       .catch(error => { throw new InternalServerErrorException(error.message) });
   }
 
-  getByUF(cityName: string, uf: string): Promise<City> {
+  getByUF(cityName: string, uf: string): Promise<InsertedCity> {
     const city: City = {
       name: cityName,
       uf: ParserUtils.parseUF(uf)
