@@ -1,75 +1,178 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+<p>Essa API tem o objetivo principal de criar e consultar uma cidade. Além de criar, consultar, editar e remover um cliente.</p>
 
-[travis-image]: https://api.travis-ci.org/nestjs/nest.svg?branch=master
-[travis-url]: https://travis-ci.org/nestjs/nest
-[linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
-[linux-url]: https://travis-ci.org/nestjs/nest
+<br>
+<h1>Pré-Requisitos</h1>
+  <p> Antes de rodar o projeto, certifique-se de que você possui o <strong>Docker</strong> instalado na sua máquina.
+
+<br>
+<h1>Rodar o projeto</h1>
+  <p>Para rodar o projeto, é necessário realizar dois comandos no terminal do seu sistema operacional:</p>
+    <ol>
+      <li>
+        <i>docker-compose build</i>
+      </li>
+      <li>
+        <i>docker-compose up</i>
+      </li>
+    </ol>
+  <p>Após rodar esses comandos, a API e o Banco de Dados estarão rodando e já será possível fazer requisições na API.</p>
+
+<br>
+<h1>Endpoints</h1>
+  <p>
+    <h2>City</h2>
+    <p>
+      <h3>POST</h3>
+        <p><strong>Descrição:</strong> Insere uma nova cidade.</p>
+        <p><strong>Endpoint:</strong> http://localhost:3000/city</p>
+        <p><strong>Exemplo de request:</strong></p>
+        <code>
+          curl --location --request POST 'http://localhost:3000/city' \
+          --header 'Content-Type: application/json' \
+          --data-raw '{
+              "name": "Chapecó",
+              "uf": "SC"
+          }'
+        </code>
+        <br><br>
+        <p><strong>Exemplo de Response:</strong></p>
+        <code>
+          {
+            "id": 1,
+            "name": "Chapecó",
+            "uf": "Santa Catarina"
+          }
+        </code>
+    </p>
+    <br>
+    <p>
+      <h3>GET</h3>
+        <p><strong>Descrição:</strong> Busca uma cidade pelo nome.</p>
+        <p><strong>Endpoint:</strong> http://localhost:3000/city/:name</p>
+        <p><strong>Exemplo de request:</strong></p>
+        <code>
+          curl --location --request GET 'http://localhost:3000/city/Chapecó'
+        </code>
+        <br><br>
+        <p>Exemplo de Response:</p>
+        <code>
+          {
+            "id": 1,
+            "name": "Chapecó",
+            "uf": "Santa Catarina"
+          }
+        </code>
+    </p>
+    <br>
+    <p>
+      <h3>GET</h3>
+        <p><strong>Descrição:</strong> Busca uma cidade pelo nome do estado + nome da cidade.</p>
+        <p><strong>Endpoint:</strong> http://localhost:3000/uf/:uf/city/:name</p>
+        <p><strong>Exemplo de request:</strong></p>
+        <code>
+          curl --location --request GET 'http://localhost:3000/uf/SC/city/Chapecó'
+        </code>
+        <br><br>
+        <p><strong>Exemplo de Response:</strong></p>
+        <code>
+          {
+            "id": 1,
+            "name": "Chapecó",
+            "uf": "Santa Catarina"
+          }
+        </code>
+    </p>
+  </p>
   
-  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
-<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
-<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
-  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
-```bash
-$ npm install
-```
-
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-  Nest is [MIT licensed](LICENSE).
+  <br>
+  
+  <p>
+    <h2>Client</h2>
+    <p>
+      <h3>POST</h3>
+        <p><strong>Descrição:</strong> Insere um novo cliente.</p>
+        <p><strong>Endpoint:</strong> http://localhost:3000/client</p>
+        <p><strong>Exemplo de request:</strong></p>
+        <code>
+          curl --location --request POST 'http://localhost:3000/client' \
+          --header 'Content-Type: application/json' \
+          --data-raw '{
+              "fullName": "Ayrton",
+              "age": 25,
+              "birthDate": "01/10/1996",
+              "sex": "Masculino",
+              "cityId": 1
+          }'
+        </code>
+        <br><br>
+        <p><strong>Exemplo de Response:</strong></p>
+        <code>
+          {
+              "age": 25,
+              "birthDate": "1996-01-10T00:00:00.000Z",
+              "fullName": "Ayrton",
+              "sex": "Masculino",
+              "city": {
+                  "id": 1,
+                  "name": "Chapecó",
+                  "uf": "Santa Catarina"
+              },
+              "id": 5
+          }
+        </code>
+    </p>
+    <br>
+    <p>
+      <h3>GET</h3>
+        <p><strong>Descrição:</strong> Busca um cliente pelo id.</p>
+        <p><strong>Endpoint:</strong> http://localhost:3000/client/id/:id</p>
+        <p><strong>Exemplo de request:</strong></p>
+        <code>
+          curl --location --request GET 'http://localhost:3000/client/id/1'
+        </code>
+        <br><br>
+        <p><strong>Exemplo de Response:</strong></p>
+        <code>
+          {
+              "id": 1,
+              "fullName": "Ayrton",
+              "sex": "Masculino",
+              "birthDate": "1996-01-20",
+              "age": 25,
+              "city": {
+                  "id": 1,
+                  "name": "Palmitos",
+                  "uf": "SC"
+              }
+          }
+        </code>
+    </p>
+    <br>
+    <p>
+      <h3>PATCH</h3>
+        <p><strong>Descrição:</strong> Atualiza o nome de um cliente.</p>
+        <p><strong>Endpoint:</strong> http://localhost:3000/client/id/:id</p>
+        <p><strong>Exemplo de request:</strong></p>
+        <code>
+          curl --location --request PATCH 'http://localhost:3000/client/id/1' \
+          --header 'Content-Type: application/json' \
+          --data-raw '{
+              "fullName": "Daniel"
+          }'
+        </code>
+        <br><br>
+        <p>Exemplo de Response: SEM RESPONSE. Retorna status 204 quando a operação é realizada com sucesso.</p>
+    </p>
+    <br>
+    <p>
+      <h3>DELETE</h3>
+        <p><strong>Descrição:</strong> Deleta um cliente.</p>
+        <p><strong>Endpoint:</strong> http://localhost:3000/client/id/:id</p>
+        <p><strong>Exemplo de request:</strong></p>
+        <code>
+          curl --location --request DELETE 'http://localhost:3000/client/id/2'
+        </code>
+        <br><br>
+        <p><strong>Exemplo de Response:</strong> SEM RESPONSE. Retorna status 204 quando a operação é realizada com sucesso.</p>
+    </p>
+  </p>  
