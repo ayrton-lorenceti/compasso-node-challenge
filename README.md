@@ -2,7 +2,7 @@
 
 <br>
 <h1>Pré-Requisitos</h1>
-  <p> Antes de rodar o projeto, certifique-se de que você possui o <strong>Docker</strong> instalado na sua máquina. 
+  <p> Antes de rodar o projeto, certifique-se de que você possui o <strong>Docker</strong> instalado na sua máquina.
 
 <br>
 <h1>Rodar o projeto</h1>
